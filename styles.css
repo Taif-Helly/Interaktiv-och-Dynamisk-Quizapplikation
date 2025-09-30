@@ -74,6 +74,7 @@ h1 {
 .shine-text::before {
     content: '';
     position: absolute;
+    background-clip: text;
     top: 0;
     left: -100%;
     width: 100%;
@@ -115,6 +116,8 @@ left: 100%;
 }
 
 .middle-text {
+    /* color: white; */
     font-family: 'MenuFont';
     font-size: 1.4rem;
+    /* -webkit-text-stroke: 0.2px black; */
 }
