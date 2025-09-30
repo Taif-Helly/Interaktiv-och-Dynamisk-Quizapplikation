@@ -5,3 +5,7 @@
 button.selected {
     background-color: red;
 }
+
+#start-btn {
+    display: none;
+}

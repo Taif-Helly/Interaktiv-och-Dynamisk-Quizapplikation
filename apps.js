@@ -1,5 +1,6 @@
 const categoryContainer = document.getElementById('category-container')
 const difficultyContainer = document.getElementById('difficulty-container')
+const startButton = document.getElementById('start-btn')
 
 let currentCategory = null
 let currentDifficulty = null
@@ -68,6 +69,11 @@ difficultyContainer.addEventListener('click', (e) => {
 function checkIfReady() {
     if (currentCategory && currentDifficulty) {
     // Här ska vi välja rätt frågor från arrayen
+
+    // Visar startknappen
+    startButton.style.display = 'block'
     console.log(currentCategory + ' och ' + currentDifficulty)
+} else {
+    startButton.style.display = 'none'
 }
 }
