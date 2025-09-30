@@ -4,6 +4,14 @@ const difficultyContainer = document.getElementById('difficulty-container')
 let currentCategory = null
 let currentDifficulty = null
 
+// Om vi bara vill välja kategori
+/* categoryContainer.addEventListener('click', (e) => { 
+    if (e.target.tagName === 'BUTTON') {
+        currentCategory = e.target.value 
+        console.log(currentCategory) } }) */
+
+
+// Om vi vill välja kategori och svårighetsgrad
 categoryContainer.addEventListener('click', (e) => {
     // Undviker att fånga andra klick i containern
     if (e.target.tagName === 'BUTTON') {
