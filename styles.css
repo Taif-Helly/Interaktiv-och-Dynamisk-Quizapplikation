@@ -71,7 +71,7 @@ h1 {
     overflow: hidden;
 }
 
-.shine-text::before {
+/* .shine-text::before {
     content: '';
     position: absolute;
     background-clip: text;
@@ -81,7 +81,7 @@ h1 {
     height: 100%;
     background: linear-gradient(120deg, transparent 25%, rgb(255, 255, 255) 50%, transparent 75%);
     animation: shine 4s infinite;
-}
+} */
 
 @keyframes shine {
 to {
@@ -89,7 +89,7 @@ left: 100%;
 }
 }
 
-.shadow-p-text {
+.start-button {
     display: inline-block;
     margin: 5% auto;
     padding: 10px 40px;
