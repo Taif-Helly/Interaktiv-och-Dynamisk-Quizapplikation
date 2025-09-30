@@ -1,1 +1,7 @@
+#difficulty-container {
+    display: none;
+}
 
+button.selected {
+    background-color: red;
+}
