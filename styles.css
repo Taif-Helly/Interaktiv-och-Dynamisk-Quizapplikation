@@ -118,3 +118,14 @@ left: 100%;
     font-family: 'MenuFont';
     font-size: 1.4rem;
 }
+
+#start-btn {
+    display: none;
+}
+#difficulty-container {
+    display: none;
+}
+
+button.selected {
+    background-color: red;
+}
