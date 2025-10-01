@@ -1,6 +1,58 @@
-const categoryContainer = document.getElementById('category-container')
+const mainContainer = document.getElementById('main-container')
+
+const logo = document.createElement('h1')
+logo.textContent = 'GI QUIZ'
+mainContainer.appendChild(logo)
+
+const title = document.createElement('h2')
+title.textContent = 'Välj frågekategori'
+mainContainer.appendChild(title)
+
+const categoryContainer = document.createElement('div')
+categoryContainer.id = 'category-container'
+
+const categories = [
+    {value: 'coding', text: 'Coding'},
+    {value: 'gaming', text: 'Gaming'}
+]
+
+categories.forEach(category => {
+    const btn = document.createElement('button')
+    btn.value = category.value
+    btn.textContent = category.text
+    categoryContainer.appendChild(btn)
+})
+
+mainContainer.appendChild(categoryContainer)
+
+const difficultyContainer = document.createElement('div')
+difficultyContainer.id = 'difficulty-container'
+
+const difficulties = [
+    {value: 'easy', text: 'Easy'},
+    {value: 'medium', text: 'Medium'},
+    {value: 'hard', text: 'Hard'},
+    {value: 'extreme', text: 'Extreme'}
+]
+
+difficulties.forEach(difficulty => {
+    const btn = document.createElement('button')
+    btn.value = difficulty.value
+    btn.textContent = difficulty.text
+    difficultyContainer.appendChild(btn)
+})
+
+mainContainer.appendChild(difficultyContainer)
+
+const startButton = document.createElement('button')
+startButton.id = 'start-btn'
+startButton.value = 'start-btn'
+startButton.textContent = 'Start quiz'
+mainContainer.appendChild (startButton)
+
+/* const categoryContainer = document.getElementById('category-container')
 const difficultyContainer = document.getElementById('difficulty-container')
-const startButton = document.getElementById('start-btn')
+const startButton = document.getElementById('start-btn') */
 
 let currentCategory = null
 let currentDifficulty = null
