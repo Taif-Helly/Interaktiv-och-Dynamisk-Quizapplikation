@@ -1,9 +1,12 @@
+import { quizArray } from "./array.js"
+
+const headerContainer = document.getElementById("header-container")
 const mainContainer = document.getElementById('main-container')
 
 // Logotext
 const logo = document.createElement('h1')
 logo.textContent = 'GI QUIZ'
-mainContainer.appendChild(logo)
+headerContainer.appendChild(logo)
 
 // Sidotitel
 const pageTitle = document.createElement('h2')
@@ -156,4 +159,92 @@ function checkIfReady() {
 } else {
     startButton.style.display = 'none'
 }
+}
+
+//Ovan är koden från category-chooser
+
+
+
+
+
+
+//Här börjar next-question-integration koden.
+
+
+//Function för att tömma allt i mainContainer
+function clearMainContainer() {
+    mainContainer.replaceChildren();
+}
+
+let filteredQuestions = []
+let currentQuestionIndex = 0
+
+startButton.addEventListener("click", (e) => {
+    clearMainContainer()
+    //Använder .find för att hitta kategorier och svårighetsgrad utifrån currentCategory och currentDifficulty som man klickade i när man valde
+    //Spottar ut det man valt i en ny div (header-container) som nu ligger över main-container.
+    const showCategory = quizArray.find(cat => cat.category === currentCategory)
+    const showDifficulty = quizArray.find(diff => diff.difficulty === currentDifficulty)
+    const chosenQuizParameters = document.createElement("h2")
+    chosenQuizParameters.textContent = `Din valda kategori är ${showCategory.category} och svårighetsgraden är ${showDifficulty.difficulty}.`
+    headerContainer.appendChild(chosenQuizParameters)
+
+    //Filtrerar ut frågorna utifrån valda kriterier
+    filteredQuestions = quizArray.filter(
+        quizArray => quizArray.category === currentCategory && quizArray.difficulty === currentDifficulty)
+    currentQuestionIndex = 0
+    showQuestion()
+
+})
+//Jävligt lång funktion för att visa frågorna
+function showQuestion() {
+    const question = filteredQuestions[currentQuestionIndex]
+    if (question) {
+        const questionContainer = document.createElement("h2")
+        questionContainer.textContent = question.question
+        mainContainer.appendChild(questionContainer)
+        
+        let answerSelected = false
+        const answerDiv = document.createElement("div")
+
+        question.answers.forEach(answer => {
+            const answerButton = document.createElement("button")
+            answerButton.textContent = answer
+            answerButton.addEventListener("click", () => {
+                answerSelected = true
+                nextButton.disabled = false
+            })
+            answerDiv.appendChild(answerButton)
+        })
+        mainContainer.appendChild(answerDiv)
+
+        const stepDiv = document.createElement("div")
+
+        const previousButton = document.createElement("button")
+        previousButton.textContent = "Föregående fråga"
+        previousButton.disabled = currentQuestionIndex === 0
+        previousButton.addEventListener("click", () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--
+                clearMainContainer()
+                showQuestion()
+            }
+        })
+        stepDiv.appendChild(previousButton)
+
+        const nextButton = document.createElement("button")
+        nextButton.textContent = "Nästa fråga"
+        nextButton.disabled = true
+            nextButton.addEventListener("click", (e) => {
+                currentQuestionIndex++
+                clearMainContainer()
+                showQuestion()
+        })
+        stepDiv.appendChild(nextButton)
+        mainContainer.appendChild(stepDiv)
+    }
+    else
+    {
+        mainContainer.textContent = "Out of questions at the moment, please hold"
+    }
 }
