@@ -141,7 +141,7 @@ h1 {
 }
 
 .content-fade-in {
-    animation: fadeIn 3s forwards;
+    animation: fadeIn 2.5s forwards;
 }
 
 @keyframes fadeOut {
@@ -150,5 +150,5 @@ h1 {
 }
 
 .content-fade-out {
-    animation: fadeOut 0.8s forwards;
+    animation: fadeOut 0.3s forwards;
 }
