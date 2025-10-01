@@ -1,1 +1,120 @@
+@font-face {
+    font-family: 'TitleFont';
+    src: url('fonts/KiwiSoda.ttf') format('truetype')
+}
 
+@font-face {
+    font-family: 'Alt-TitleFont';
+    src: url('fonts/Daydream.otf') format('truetype')
+}
+
+@font-face {
+    font-family: 'MenuFont';
+    src: url('fonts/Code.ttf') format('truetype')
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body {
+    background-color: antiquewhite;
+}
+.title-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: fit-content;
+    margin: 5% auto;   
+    padding: 20px 40px;
+
+    background: linear-gradient(
+        to right bottom,
+        rgb(111, 147, 153) 0%,
+        rgb(131, 214, 226) 25%,
+        rgb(196, 214, 218) 50%,
+        rgb(131, 214, 226) 75%,
+        rgb(111, 147, 153) 100%
+    );
+
+    border-radius: 12px;
+    border: 2px solid rgba(178, 205, 216, 0.521);
+
+    box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.219);
+}
+
+h1 {
+    margin-top: 5%;
+    margin-bottom: 4%;
+
+    background: linear-gradient(to right bottom,
+    silver 15%,
+    white 50%,
+    silver 85%);
+    
+    font-family: 'TitleFont';
+    font-size: 6rem;
+    letter-spacing: 12px;
+    
+    user-select: none;    
+}
+
+.shine-text {
+    position: relative;
+    background: linear-gradient(to top, red, yellow);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 0.1px rgb(70, 151, 165);
+    overflow: hidden;
+}
+
+.shine-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent 25%, rgb(255, 255, 255) 50%, transparent 75%);
+    animation: shine 4s infinite;
+}
+
+@keyframes shine {
+to {
+left: 100%;
+}
+}
+
+.shadow-p-text {
+    display: inline-block;
+    margin: 5% auto;
+    padding: 10px 40px;
+    text-align: center;
+    font-family: 'MenuFont';
+    font-size: 32px;
+    color: rgb(233, 190, 82);
+    text-shadow: -2px 2px 2px black;
+
+    background: linear-gradient(
+        to right bottom,
+        rgba(12, 187, 218, 0.822),
+        rgb(176, 222, 230),
+        rgba(12, 187, 218, 0.822)
+    );
+
+    border-radius: 12px;
+    border: 2px solid rgba(167, 201, 207, 0.63);
+
+    box-shadow: -3px 3px 8px rgba(0, 0, 0, 0.39);
+
+    user-select: none;
+    cursor: pointer;
+}
+
+.middle-text {
+    font-family: 'MenuFont';
+    font-size: 1.4rem;
+}
