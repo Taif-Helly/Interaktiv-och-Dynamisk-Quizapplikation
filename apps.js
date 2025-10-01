@@ -16,7 +16,7 @@ logoType.textContent = "Geekqwizz"
 
 const introText = document.createElement('p')
 introText.id = "intro-text"
-const introContent = "Welcome to Geekqwizz, a retro-style quiz-game! Choose between two categories and try to beat your high score!"
+const introContent = "Welcome to Geekqwizz, a retro-style quiz-game! Choose between two categories and try to beat your high score! Each categor has five questions, good luck!"
 
 const startButton = document.createElement('p')
 startButton.id = "start-button"
