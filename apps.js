@@ -1,21 +1,24 @@
+import { quizArray } from "./array.js"
+
 // ---------------- HTML-ELEMENT ----------------
+const headerContainer = document.getElementById("header-container")
 const mainContainer = document.getElementById('main-container')
 
-// Logotext
 const logo = document.createElement('h1')
 logo.textContent = 'GI QUIZ'
 mainContainer.appendChild(logo)
 
-// Sidotitel
 const pageTitle = document.createElement('h2')
 pageTitle.textContent = 'Välj frågekategori'
 mainContainer.appendChild(pageTitle)
 
-
 // ---------------- KATEGORI-ARRAY OCH -KNAPPAR ----------------
-// Kategori-container
 const categoryContainer = document.createElement('div')
 categoryContainer.id = 'category-container'
+
+function countQuestionsPerCategory(category) {
+    return quizArray.filter(q => q.category === category).length
+}
 
 // Array med alla kategorier och deras information
 const categories = [
@@ -23,26 +26,17 @@ const categories = [
         value: 'coding', 
         title: 'Coding', 
         description: 'Everything about code', 
-        difficulties: [
-            { value: 'easy', text: 'Easy', questions: 5 },
-            { value: 'medium', text: 'Medium', questions: 5 },
-            { value: 'hard', text: 'Hard', questions: 5 },
-            { value: 'extreme', text: 'Extreme', questions: 5 }
-        ]
+        questions: countQuestionsPerCategory('coding')
     },
     {
         value: 'gaming', 
         title: 'Gaming', 
         description: 'Everything about video games', 
-        difficulties : [
-            { value: 'easy', text: 'Easy', questions: 5 },
-            { value: 'medium', text: 'Medium', questions: 5 },
-            { value: 'hard', text: 'Hard', questions: 5 }
-        ]
+        questions: countQuestionsPerCategory('gaming')
     }
 ]
 
-// Knapp med information för varje kategori
+// Skapar en knapp för varje kategori, med information om kategorin
 categories.forEach(category => {
     const btn = document.createElement('button')
     btn.value = category.value
@@ -53,153 +47,86 @@ categories.forEach(category => {
     const description = document.createElement('div')
     description.textContent = category.description
 
-    /* const questions = document.createElement('div')
-    questions.textContent = `${category.questions} frågor` */
+    const questions = document.createElement('div')
+    questions.textContent = `${category.questions} frågor`
 
     btn.appendChild(title)
     btn.appendChild(description)
-    // btn.appendChild(questions)
+    btn.appendChild(questions)
 
     categoryContainer.appendChild(btn)
 })
 
 mainContainer.appendChild(categoryContainer)
 
-// ---------------- SVÅRIGHETSGRAD-ARRAY OCH -KNAPPAR ----------------
-// OBS. ALLT I KOMMENTARER UNDER DEN HÄR DELEN KAN TAS BORT
-// Svårighetsgrad-container
-const difficultyContainer = document.createElement('div')
-difficultyContainer.id = 'difficulty-container'
-difficultyContainer.style.display = 'none'
-
-/* // Array med alla svårighetsgrader
-const difficulties = [
-    {value: 'easy', text: 'Easy'},
-    {value: 'medium', text: 'Medium'},
-    {value: 'hard', text: 'Hard'},
-    {value: 'extreme', text: 'Extreme'}
-]
-
-// Knapp för varje svårighetsgrad
-difficulties.forEach(difficulty => {
-    const btn = document.createElement('button')
-    btn.value = difficulty.value
-    btn.textContent = difficulty.text
-    difficultyContainer.appendChild(btn)
-}) */
-
-mainContainer.appendChild(difficultyContainer)
-
-function showDifficulitesForCategory(categoryValue) {
-    const category = categories.find(cat => cat.value === categoryValue)
-    difficultyContainer.innerHTML = ''
-
-    if (category) {
-        category.difficulties.forEach(diff => {
-            const btn = document.createElement('button')
-            btn.value = diff.value
-            btn.textContent = `${diff.text} ${diff.questions} frågor`
-            difficultyContainer.appendChild(btn)
-        })
-
-        difficultyContainer.style.display = 'block'
-    }
+// ---------------- KATEGORIVAL OCH FRÅGOR ----------------
+function clearMainContainer() {
+    mainContainer.replaceChildren();
 }
 
+let filteredQuestions = []
+let currentQuestionIndex = 0
 
-// ---------------- STARTKNAPP ----------------
-const startButton = document.createElement('button')
-startButton.id = 'start-btn'
-startButton.style.display = 'none'
-startButton.value = 'start-btn'
-startButton.textContent = 'Start quiz'
-mainContainer.appendChild(startButton)
-
-// Kollar om användaren har valt kategori och svårighetsgrad
-function checkIfReady() {
-    if (currentCategory && currentDifficulty) {
-    // Här ska vi välja rätt frågor från arrayen
-
-    // Visar startknappen
-    startButton.style.display = 'block'
-    console.log(currentCategory + ' och ' + currentDifficulty)
-} else {
-    startButton.style.display = 'none'
-}
-}
-
-// Gammalt, kan tas bort
-/* const categoryContainer = document.getElementById('category-container')
-const difficultyContainer = document.getElementById('difficulty-container')
-const startButton = document.getElementById('start-btn') */
-
-
-// ---------------- KATEGORI- OCH SVÅRIGHETSVAL ----------------
-// Logik
-let currentCategory = null
-let currentDifficulty = null
-
-// Om vi bara vill välja kategori
-/* categoryContainer.addEventListener('click', (e) => { 
-    if (e.target.tagName === 'BUTTON') {
-        currentCategory = e.target.value 
-        console.log(currentCategory) } }) */
-
-
-// Om vi vill välja kategori och svårighetsgrad
 categoryContainer.addEventListener('click', (e) => {
-    // Undviker att fånga andra klick i containern
+      // Undviker att fånga andra klick i containern
     const categoryBtn = e.target.closest('button')
 
     if (categoryBtn) {
-        // Hämtar value från knappen som användaren har klickat på
-        const clickedCategory = categoryBtn.value
-
-        // Avmarkerar tidigare vald knapp
-        categoryContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('selected')) // Det här kanske man kan lägga i en funktion eftersom det upprepas
-
-        if (currentCategory === clickedCategory) {
-            // Om användaren klickar på samma knapp igen avmarkeras den
-            currentCategory = null
-            categoryBtn.classList.remove('selected')
-            
-            // Döljer och avmarkerar svårighetsknapparna
-            difficultyContainer.style.display = 'none'
-            currentDifficulty = null
-            difficultyContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
-        } else {
-            // Markerar kategorin som användaren klickat på
-            currentCategory =  clickedCategory
-            categoryBtn.classList.add('selected')
-
-            // Visar och avmarkerar svårighetsknapparna (när användaren byter kategori)
-            difficultyContainer.style.display = 'block';
-            currentDifficulty = null;
-            difficultyContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
-            showDifficulitesForCategory(clickedCategory)
-        }
-        
+        const currentCategory = categoryBtn.value
         console.log(currentCategory)
-        checkIfReady()
+
+        clearMainContainer()
+
+        // Använder .find för att hitta kategorier och svårighetsgrad utifrån currentCategory och currentDifficulty som man klickade i när man valde
+        // Spottar ut det man valt i en ny div (header-container) som nu ligger över main-container.
+        const showCategory = quizArray.find(cat => cat.category === currentCategory)
+
+        const chosenQuizParameters = document.createElement("h2")
+        chosenQuizParameters.textContent = `Din valda kategori är ${showCategory.category}.`
+
+        headerContainer.appendChild(chosenQuizParameters)
+
+        // Filtrerar ut frågorna utifrån valda kriterier
+        filteredQuestions = quizArray.filter(
+        quizArray => quizArray.category === currentCategory)
+
+        currentQuestionIndex = 0
+
+        showQuestion()
     }
+
 })
 
-difficultyContainer.addEventListener('click', (e) => {
-    const difficultyBtn = e.target.closest('button')
+function showQuestion() {
+    const question = filteredQuestions[currentQuestionIndex]
 
-    if (difficultyBtn) {
-        const clickedDifficulty = difficultyBtn.value
+    if (question) {
+        const questionContainer = document.createElement("h2")
+        questionContainer.textContent = question.question
 
-        if (currentDifficulty === clickedDifficulty) {
-            currentDifficulty = null
-            difficultyBtn.classList.remove('selected') 
-        } else {
-            currentDifficulty =  clickedDifficulty  
-            difficultyContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'))
-            difficultyBtn.classList.add('selected')     
-        }
+        mainContainer.appendChild(questionContainer)
+        
+        let answerSelected = false
+        const answerDiv = document.createElement("div")
 
-        console.log(currentDifficulty)
-        checkIfReady()
+        question.answers.forEach(answer => {
+            const answerButton = document.createElement("button")
+            answerButton.textContent = answer
+
+            answerButton.addEventListener("click", () => {
+                answerSelected = true
+                currentQuestionIndex++
+                clearMainContainer()
+                showQuestion()
+            })
+
+            answerDiv.appendChild(answerButton)
+        })
+
+        mainContainer.appendChild(answerDiv)
+        
+    } else {
+        mainContainer.textContent = "Out of questions at the moment, please hold"
     }
-})
+}
+    
