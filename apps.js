@@ -1,17 +1,26 @@
 // Startsidan
 
 const mainBody = document.getElementById('body')
-const introBox = document.getElementById("intro-box");
+const logoBox = document.createElement('div')
+logoBox.id = 'logo-box'
+const logoText = document.createElement('h1')
+logoText.id = 'logo-text'
+logoText.textContent = "Geekqwizz"
+
+mainBody.appendChild(logoBox)
+mainBody.appendChild(logoText)
+
+const introBox = document.createElement('div')
+introBox.id = 'intro-box'
+mainBody.appendChild(introBox)
 
 function startPageLoad () {
     introBox.classList.add("content-fade-in");
-    introBox.addEventListener("fully-faded-in", () => { mainBody.appendChild(introBox); }, { once: true });
+    introBox.addEventListener("fully-faded-in", () => { mainBody.appendChild(introBox) });
 }
 
 startPageLoad();
 
-const logoType = document.getElementById("shine-text")
-logoType.textContent = "Geekqwizz"
 
 
 const introText = document.createElement('p')
@@ -29,7 +38,7 @@ const creatorsText2 = document.createElement('p');
 creatorsText2.id ="creators-text"
 
 const creatorsContent1 = "Created by:";
-const creatorsContent2 = "David, Desirée, Johan & Taif!";
+const creatorsContent2 = "David, Desirée, Johan & Taif";
 
 introText.textContent = introContent
 creatorsText1.textContent = creatorsContent1
@@ -42,8 +51,11 @@ introBox.appendChild(creatorsText1);
 introBox.appendChild(creatorsText2);
 
 function launchGame () {
-    introBox.classList.add("content-fade-out");
-    introBox.addEventListener("fully-faded-out", () => { introBox.remove(); }, { once: true });
+        introBox.classList.add("content-fade-out");
+    setInterval(() => {
+        mainBody.removeChild(introBox)
+        
+    }, 200);
 }
 
 startButton.addEventListener('click', launchGame);
