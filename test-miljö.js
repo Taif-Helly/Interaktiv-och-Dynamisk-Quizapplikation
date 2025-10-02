@@ -1,38 +1,3 @@
-// let appState = "Start"; // Håller koll på vilken "sida" vi är på
-// function setState(next) {
-//   appState = next; // Byt till ny sida (t.ex. "Quiz")
-//   render();  // Rita om skärmen
-// }
-
-// function render() {
-//   const app = document.getElementById('app');  // Hitta div:en med id="app"
-  
-//     // Kolla vilken sida vi ska visa:
-//   if (appState === "Start") {
-//     app.innerHTML = `
-//       <h1>Välkommen till Quiz!</h1>
-//       <button onclick="setState('Quiz')">Starta Quiz</button>
-//     `;
-//     // Rita startsidan med välkomsttext och knapp
-//   }
-  
-//   if (appState === "Quiz") {
-//     app.innerHTML = `
-//       <h2>Fråga 1: Vad är 2+2?</h2>
-//       <button onclick="setState('Results')">Se Resultat</button>
-//     `;
-//   }
-  
-//   if (appState === "Results") {
-//     app.innerHTML = `
-//       <h1>Du fick 5 rätt! </h1>
-//       <button onclick="setState('Start')">Starta Om</button>
-//     `;
-//   }
-// }
-
-// render(); // Starta appen
-
 let appState = "start";
 
 function setState(next){
@@ -107,7 +72,7 @@ function renderResult() {
 
   const againBtn = document.createElement("button");
   againBtn.textContent = "Spela igen";
-  againBtn.onclick = () => setState("start"); // ✅ Ändrat från "intro" till "start"
+  againBtn.onclick = () => setState("start"); // Ändrat från "intro" till "start"
   app.appendChild(againBtn);
 }
 
