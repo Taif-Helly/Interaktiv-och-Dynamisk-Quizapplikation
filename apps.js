@@ -1,3 +1,4 @@
+// ---------------- HTML-ELEMENT ----------------
 const mainContainer = document.getElementById('main-container')
 
 // Logotext
@@ -10,14 +11,35 @@ const pageTitle = document.createElement('h2')
 pageTitle.textContent = 'Välj frågekategori'
 mainContainer.appendChild(pageTitle)
 
+
+// ---------------- KATEGORI-ARRAY OCH -KNAPPAR ----------------
 // Kategori-container
 const categoryContainer = document.createElement('div')
 categoryContainer.id = 'category-container'
 
 // Array med alla kategorier och deras information
 const categories = [
-    {value: 'coding', title: 'Coding', description: 'Everything about code', questions: 5},
-    {value: 'gaming', title: 'Gaming', description: 'Everything about video games', questions: 5}
+    {
+        value: 'coding', 
+        title: 'Coding', 
+        description: 'Everything about code', 
+        difficulties: [
+            { value: 'easy', text: 'Easy', questions: 5 },
+            { value: 'medium', text: 'Medium', questions: 5 },
+            { value: 'hard', text: 'Hard', questions: 5 },
+            { value: 'extreme', text: 'Extreme', questions: 5 }
+        ]
+    },
+    {
+        value: 'gaming', 
+        title: 'Gaming', 
+        description: 'Everything about video games', 
+        difficulties : [
+            { value: 'easy', text: 'Easy', questions: 5 },
+            { value: 'medium', text: 'Medium', questions: 5 },
+            { value: 'hard', text: 'Hard', questions: 5 }
+        ]
+    }
 ]
 
 // Knapp med information för varje kategori
@@ -31,23 +53,26 @@ categories.forEach(category => {
     const description = document.createElement('div')
     description.textContent = category.description
 
-    const questions = document.createElement('div')
-    questions.textContent = `${category.questions} frågor`
+    /* const questions = document.createElement('div')
+    questions.textContent = `${category.questions} frågor` */
 
     btn.appendChild(title)
     btn.appendChild(description)
-    btn.appendChild(questions)
+    // btn.appendChild(questions)
 
     categoryContainer.appendChild(btn)
 })
 
 mainContainer.appendChild(categoryContainer)
 
+// ---------------- SVÅRIGHETSGRAD-ARRAY OCH -KNAPPAR ----------------
+// OBS. ALLT I KOMMENTARER UNDER DEN HÄR DELEN KAN TAS BORT
 // Svårighetsgrad-container
 const difficultyContainer = document.createElement('div')
 difficultyContainer.id = 'difficulty-container'
+difficultyContainer.style.display = 'none'
 
-// Array med alla svårighetsgrader
+/* // Array med alla svårighetsgrader
 const difficulties = [
     {value: 'easy', text: 'Easy'},
     {value: 'medium', text: 'Medium'},
@@ -61,22 +86,55 @@ difficulties.forEach(difficulty => {
     btn.value = difficulty.value
     btn.textContent = difficulty.text
     difficultyContainer.appendChild(btn)
-})
+}) */
 
 mainContainer.appendChild(difficultyContainer)
 
-// Startknapp
+function showDifficulitesForCategory(categoryValue) {
+    const category = categories.find(cat => cat.value === categoryValue)
+    difficultyContainer.innerHTML = ''
+
+    if (category) {
+        category.difficulties.forEach(diff => {
+            const btn = document.createElement('button')
+            btn.value = diff.value
+            btn.textContent = `${diff.text} ${diff.questions} frågor`
+            difficultyContainer.appendChild(btn)
+        })
+
+        difficultyContainer.style.display = 'block'
+    }
+}
+
+
+// ---------------- STARTKNAPP ----------------
 const startButton = document.createElement('button')
 startButton.id = 'start-btn'
+startButton.style.display = 'none'
 startButton.value = 'start-btn'
 startButton.textContent = 'Start quiz'
-mainContainer.appendChild (startButton)
+mainContainer.appendChild(startButton)
+
+// Kollar om användaren har valt kategori och svårighetsgrad
+function checkIfReady() {
+    if (currentCategory && currentDifficulty) {
+    // Här ska vi välja rätt frågor från arrayen
+
+    // Visar startknappen
+    startButton.style.display = 'block'
+    console.log(currentCategory + ' och ' + currentDifficulty)
+} else {
+    startButton.style.display = 'none'
+}
+}
 
 // Gammalt, kan tas bort
 /* const categoryContainer = document.getElementById('category-container')
 const difficultyContainer = document.getElementById('difficulty-container')
 const startButton = document.getElementById('start-btn') */
 
+
+// ---------------- KATEGORI- OCH SVÅRIGHETSVAL ----------------
 // Logik
 let currentCategory = null
 let currentDifficulty = null
@@ -118,6 +176,7 @@ categoryContainer.addEventListener('click', (e) => {
             difficultyContainer.style.display = 'block';
             currentDifficulty = null;
             difficultyContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
+            showDifficulitesForCategory(clickedCategory)
         }
         
         console.log(currentCategory)
@@ -144,16 +203,3 @@ difficultyContainer.addEventListener('click', (e) => {
         checkIfReady()
     }
 })
-
-// Kollar om användaren har valt kategori och svårighetsgrad
-function checkIfReady() {
-    if (currentCategory && currentDifficulty) {
-    // Här ska vi välja rätt frågor från arrayen
-
-    // Visar startknappen
-    startButton.style.display = 'block'
-    console.log(currentCategory + ' och ' + currentDifficulty)
-} else {
-    startButton.style.display = 'none'
-}
-}
