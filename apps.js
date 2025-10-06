@@ -211,6 +211,9 @@ function gameStart() {
 
           if (clickedAnswer === correctAnswer) {
             score++;
+            answerButton.id = "correct-btn"
+          } else {
+            answerButton.id = "wrong-btn"
           }
 
           answerDiv.classList.add("content-fade-out")

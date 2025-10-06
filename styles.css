@@ -307,6 +307,78 @@ h2 {
 
 }
 
+#correct-btn {
+    width: 250px;
+    height: 120px;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 1%;   
+    margin-bottom: 2%;
+    padding: 15px;
+
+    font-size: 1.2rem;
+    font-family: 'MenuFont';
+    line-height: 20px;
+    text-shadow: -2px 2px 2px rgb(255, 255, 255);
+
+    /* background: linear-gradient(
+        to right bottom,
+        rgb(111, 147, 153) 0%,
+        rgb(131, 214, 226) 25%,
+        rgb(196, 214, 218) 50%,
+        rgb(131, 214, 226) 75%,
+        rgb(111, 147, 153) 100%
+    ); */
+
+    background-color: green;
+
+    border-radius: 12px;
+    border: 2px solid rgba(178, 205, 216, 0.521);
+
+    box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.219);
+    box-sizing: border-box;
+    /* user-select: none; */
+    cursor: pointer;
+    transition: 0.3s ease-out;
+
+}
+
+#wrong-btn {
+    width: 250px;
+    height: 120px;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-top: 1%;   
+    margin-bottom: 2%;
+    padding: 15px;
+
+    font-size: 1.2rem;
+    font-family: 'MenuFont';
+    line-height: 20px;
+    text-shadow: -2px 2px 2px rgb(255, 255, 255);
+
+    /* background: linear-gradient(
+        to right bottom,
+        rgb(111, 147, 153) 0%,
+        rgb(131, 214, 226) 25%,
+        rgb(196, 214, 218) 50%,
+        rgb(131, 214, 226) 75%,
+        rgb(111, 147, 153) 100%
+    ); */
+
+    background-color: red;
+
+    border-radius: 12px;
+    border: 2px solid rgba(178, 205, 216, 0.521);
+
+    box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.219);
+    box-sizing: border-box;
+    /* user-select: none; */
+    cursor: pointer;
+    transition: 0.3s ease-out;
+
+}
+
 #restart-btn-style:hover {
     transform: scale(1.03);
     transition: 0.3s ease-out;
