@@ -216,15 +216,17 @@ function gameStart() {
             answerButton.id = "wrong-btn"
           }
 
-          answerDiv.classList.add("content-fade-out")
-          questionContainer.classList.add("content-fade-out")
+          setTimeout(() => {
+            questionContainer.classList.add("content-fade-out")
+            answerDiv.classList.add("content-fade-out")
+          }, 2000);
           setTimeout(() => {
             currentQuestionIndex++;
             clearMainContainer();
             answerDiv.classList.remove("content-fade-out");
             questionContainer.classList.remove("content-fade-out")
             showQuestion();
-          }, 200);
+          }, 400);
 });
         answerDiv.appendChild(answerButton);
       });

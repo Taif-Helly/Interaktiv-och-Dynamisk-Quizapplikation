@@ -321,16 +321,14 @@ h2 {
     line-height: 20px;
     text-shadow: -2px 2px 2px rgb(255, 255, 255);
 
-    /* background: linear-gradient(
+    background: linear-gradient(
         to right bottom,
-        rgb(111, 147, 153) 0%,
-        rgb(131, 214, 226) 25%,
-        rgb(196, 214, 218) 50%,
-        rgb(131, 214, 226) 75%,
-        rgb(111, 147, 153) 100%
-    ); */
-
-    background-color: green;
+        rgb(126, 165, 101) 0%,
+        rgb(98, 224, 130) 25%,
+        rgb(255, 255, 255) 50%,
+        rgb(98, 224, 130) 75%,
+        rgb(126, 165, 101) 100%
+    );
 
     border-radius: 12px;
     border: 2px solid rgba(178, 205, 216, 0.521);
@@ -339,7 +337,7 @@ h2 {
     box-sizing: border-box;
     /* user-select: none; */
     cursor: pointer;
-    transition: 0.3s ease-out;
+    transition: 0.8s ease-out;
 
 }
 
@@ -357,16 +355,14 @@ h2 {
     line-height: 20px;
     text-shadow: -2px 2px 2px rgb(255, 255, 255);
 
-    /* background: linear-gradient(
+    background: linear-gradient(
         to right bottom,
-        rgb(111, 147, 153) 0%,
-        rgb(131, 214, 226) 25%,
-        rgb(196, 214, 218) 50%,
-        rgb(131, 214, 226) 75%,
-        rgb(111, 147, 153) 100%
-    ); */
-
-    background-color: red;
+        rgb(155, 71, 71) 0%,
+        rgb(202, 92, 92) 25%,
+        rgb(255, 255, 255) 50%,
+        rgb(202, 92, 92) 75%,
+        rgb(155, 71, 71) 100%
+    );
 
     border-radius: 12px;
     border: 2px solid rgba(178, 205, 216, 0.521);
@@ -375,7 +371,7 @@ h2 {
     box-sizing: border-box;
     /* user-select: none; */
     cursor: pointer;
-    transition: 0.3s ease-out;
+    transition: 0.8s ease-out;
 
 }
 
