@@ -44,6 +44,8 @@ body {
     background-image: url("images/djungle-BG.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
+    ;
 }
 
 #main-container {
