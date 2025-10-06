@@ -234,7 +234,7 @@ function gameStart() {
       const highScore = parseFloat(localStorage.getItem('highScore')) || 0
 
       if (score > highScore) {
-        localStorage.setItem('highscore', score)
+        localStorage.setItem('highScore', score)
         const highScoreEL = document.createElement("p")
         highScoreEL.id = "intro-text"
         highScoreEL.classList.add("content-fade-in")
