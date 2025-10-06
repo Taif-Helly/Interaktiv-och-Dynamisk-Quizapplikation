@@ -13,10 +13,10 @@ const logo = document.createElement("h1");
 logo.id = "logo-text";
 logo.textContent = "Geekqwizz";
 
-window.setTimeout (() => {
-  logo.classList.add("intro-fade-in")
+window.setTimeout(() => {
+  logo.classList.add("intro-fade-in");
   headerContainer.appendChild(logo);
-}, 500)
+}, 500);
 
 const introBox = document.createElement("div");
 introBox.id = "intro-box";
@@ -24,7 +24,7 @@ introBox.id = "intro-box";
 const introText = document.createElement("p");
 introText.id = "intro-text";
 const introContent =
-"Welcome to Geekqwizz, a retro-style quiz-game! Choose between two categories and try to beat your high score! Each category has multiple questions, good luck!";
+  "Welcome to Geekqwizz, a retro-style quiz-game! Choose between two categories and try to beat your high score! Each category has multiple questions, good luck!";
 
 const startButton = document.createElement("p");
 startButton.id = "start-button";
@@ -54,7 +54,7 @@ function startPageLoad() {
   setTimeout(() => {
     introBox.classList.add("intro-fade-in");
     mainContainer.appendChild(introBox);
-  }, 1500)
+  }, 1500);
 }
 
 // Laddar in all ovansttående kod och kör funktionen, lägger till eventlistener till startknappen
@@ -63,17 +63,15 @@ startPageLoad();
 
 startButton.addEventListener("click", () => {
   introBox.classList.add("content-fade-out");
-    window.setTimeout(() => {
-      gameStart()
-    }, 500);
-
+  window.setTimeout(() => {
+    gameStart();
+  }, 500);
 });
 
 //Funktioner
 function gameStart() {
-
   mainContainer.replaceChildren();
-  
+
   function countQuestionsPerCategory(category) {
     return quizArray.filter((q) => q.category === category).length;
   }
@@ -83,17 +81,15 @@ function gameStart() {
   pageTitle.textContent = "Choose category";
   pageTitle.id = "category";
   headerContainer.appendChild(pageTitle);
-  
-  const backgroundContainer = document.createElement('div')
+
+  const backgroundContainer = document.createElement("div");
   backgroundContainer.classList.add("content-fade-in");
-  backgroundContainer.id = 'background-container'
-  mainContainer.appendChild(backgroundContainer)
+  backgroundContainer.id = "background-container";
+  mainContainer.appendChild(backgroundContainer);
 
   const categoryContainer = document.createElement("div");
   categoryContainer.id = "category-container";
   categoryContainer.classList.add("content-fade-in");
-  
-
 
   // Array med alla kategorier och deras information
   const categories = [
@@ -116,28 +112,24 @@ function gameStart() {
     const btn = document.createElement("button");
     btn.value = category.value;
     btn.id = "btn-style";
-    btn.classList.add("content-fade-in")
-    
+    btn.classList.add("content-fade-in");
+
     const title = document.createElement("h2");
     title.textContent = category.title;
 
     const description = document.createElement("p");
     description.textContent = category.description;
 
-    
     btn.appendChild(title);
     btn.appendChild(description);
-    
+
     categoryContainer.appendChild(btn);
     const questions = document.createElement("p");
     questions.textContent = `${category.questions} questions`;
-    questions.id = "intro-text"
+    questions.id = "intro-text";
     backgroundContainer.appendChild(categoryContainer);
-    // categoryContainer.appendChild(questions) 
-
-});
-
-
+    // categoryContainer.appendChild(questions)
+  });
 
   // ---------------- KATEGORIVAL OCH FRÅGOR ----------------
 
@@ -150,7 +142,6 @@ function gameStart() {
   let score = 0;
 
   categoryContainer.addEventListener("click", (e) => {
-
     // Undviker att fånga andra klick i containern
     const categoryBtn = e.target.closest("button");
 
@@ -180,20 +171,20 @@ function gameStart() {
       showQuestion();
     }
   });
-  
+
   function showQuestion() {
     const question = filteredQuestions[currentQuestionIndex];
 
     if (question) {
       const questionContainer = document.createElement("div");
-      questionContainer.id = "question-container"
-      
-      const questionText = document.createElement('h2')
+      questionContainer.id = "question-container";
+
+      const questionText = document.createElement("h2");
       questionText.textContent = question.question;
-      questionText.classList.add("content-fade-in")
+      questionText.classList.add("content-fade-in");
 
       backgroundContainer.appendChild(questionContainer);
-      questionContainer.appendChild(questionText)
+      questionContainer.appendChild(questionText);
 
       const answerDiv = document.createElement("div");
       answerDiv.id = "answerDiv";
@@ -203,7 +194,7 @@ function gameStart() {
         answerButton.textContent = answer;
         answerButton.setAttribute("data-index", index);
         answerButton.id = "btn-style";
-        answerButton.classList.add("content-fade-in")
+        answerButton.classList.add("content-fade-in");
 
         answerButton.addEventListener("click", (e) => {
           const clickedAnswer = Number(e.target.dataset.index);
@@ -211,58 +202,72 @@ function gameStart() {
 
           if (clickedAnswer === correctAnswer) {
             score++;
-            answerButton.id = "correct-btn"
+            answerButton.id = "correct-btn";
           } else {
-            answerButton.id = "wrong-btn"
+            answerButton.id = "wrong-btn";
           }
 
           setTimeout(() => {
-            questionContainer.classList.add("content-fade-out")
-            answerDiv.classList.add("content-fade-out")
+            questionContainer.classList.add("content-fade-out");
+            answerDiv.classList.add("content-fade-out");
           }, 2000);
           setTimeout(() => {
             currentQuestionIndex++;
             clearMainContainer();
             answerDiv.classList.remove("content-fade-out");
-            questionContainer.classList.remove("content-fade-out")
+            questionContainer.classList.remove("content-fade-out");
             showQuestion();
           }, 400);
-});
+        });
         answerDiv.appendChild(answerButton);
       });
 
       backgroundContainer.appendChild(answerDiv);
     } else {
-      const topList = localStorage.getItem('pastScore')
-      localStorage.setItem('pastScore', score)
-      
-      pageTitle.textContent = "Thank's for playing!"
+      pageTitle.textContent = "Thank's for playing!";
       const scoreEL = document.createElement("p");
       scoreEL.id = "intro-text";
-      scoreEL.classList.add("content-fade-in")
-      scoreEL.textContent = `Your right answers are ${score} out of ${filteredQuestions.length}. Your best score is: ${topList}`;
+      scoreEL.classList.add("content-fade-in");
+      scoreEL.textContent = `Your right answers are ${score} out of ${filteredQuestions.length}.`;
       backgroundContainer.appendChild(scoreEL);
 
-      const restartButton = document.createElement('button');
-      restartButton.textContent = 'Retake quiz'
-      restartButton.id = "restart-btn-style"
-      restartButton.classList.add("content-fade-in")
-      backgroundContainer.appendChild(restartButton)
+      const highScore = parseFloat(localStorage.getItem('highScore')) || 0
 
-      restartButton.addEventListener('click', () => {
-        backgroundContainer.classList.add('content-fade-out')
-        pageTitle.classList.add('content-fade-out')
-        mainContainer.classList.add("content-fade-in")
-        
+      if (score > highScore) {
+        localStorage.setItem('highscore', score)
+        const highScoreEL = document.createElement("p")
+        highScoreEL.id = "intro-text"
+        highScoreEL.classList.add("content-fade-in")
+        highScoreEL.textContent = `Your new high score is ${score}!`;
+        backgroundContainer.appendChild(highScoreEL);
+      } else {
+        const highScoreEL = document.createElement("p")
+        highScoreEL.id = "intro-text"
+        highScoreEL.classList.add("content-fade-in")
+        highScoreEL.textContent = `Your high score: ${highScore}`
+        backgroundContainer.appendChild(highScoreEL);
+      }
+
+      const restartButton = document.createElement("button");
+      restartButton.textContent = "Retake quiz";
+      restartButton.id = "restart-btn-style";
+      restartButton.classList.add("content-fade-in");
+      backgroundContainer.appendChild(restartButton);
+
+      restartButton.addEventListener("click", () => {
+        backgroundContainer.classList.add("content-fade-out");
+        pageTitle.classList.add("content-fade-out");
+        mainContainer.classList.add("content-fade-in");
+
         setTimeout(() => {
-          pageTitle.innerHTML = ""
+          pageTitle.innerHTML = "";
           mainContainer.replaceChildren();
           headerContainer.removeChild(pageTitle);
-          backgroundContainer.classList.remove('content-fade-out')
-          pageTitle.classList.remove('content-fade-out')
-          gameStart()
-        }, 500)
-    })
+          backgroundContainer.classList.remove("content-fade-out");
+          pageTitle.classList.remove("content-fade-out");
+          gameStart();
+        }, 500);
+      });
+    }
   }
-};
-  }
+}
