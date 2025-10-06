@@ -12,8 +12,11 @@ const mainBody = document.getElementById("body");
 const logo = document.createElement("h1");
 logo.id = "logo-text";
 logo.textContent = "Geekqwizz";
-logo.classList.add("intro-fade-in")
-headerContainer.appendChild(logo);
+
+window.setTimeout (() => {
+  logo.classList.add("intro-fade-in")
+  headerContainer.appendChild(logo);
+}, 500)
 
 const introBox = document.createElement("div");
 introBox.id = "intro-box";
@@ -39,6 +42,7 @@ const creatorsContent2 = "David, Desirée, Johan & Taif";
 introText.textContent = introContent;
 creatorsText1.textContent = creatorsContent1;
 creatorsText2.textContent = creatorsContent2;
+
 introBox.appendChild(introText);
 
 introBox.appendChild(startButton);
@@ -50,7 +54,7 @@ function startPageLoad() {
   setTimeout(() => {
     introBox.classList.add("intro-fade-in");
     mainContainer.appendChild(introBox);
-  }, 1200)
+  }, 1500)
 }
 
 // Laddar in all ovansttående kod och kör funktionen, lägger till eventlistener till startknappen
