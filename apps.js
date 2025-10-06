@@ -1,9 +1,13 @@
 import { quizArray } from "./array.js";
 
+// Skapar variablar för containers & länkar med CSS
+
 const headerContainer = document.getElementById("header-container");
 const mainContainer = document.getElementById("main-container");
 
 const mainBody = document.getElementById("body");
+
+// Skapar logon & textruta med startknapp & länkar med CSS
 
 const logo = document.createElement("h1");
 logo.id = "logo-text";
@@ -49,19 +53,22 @@ function startPageLoad() {
   }, 1200)
 }
 
+// Laddar in all ovansttående kod och kör funktionen, lägger till eventlistener till startknappen
+
 startPageLoad();
 
 startButton.addEventListener("click", () => {
+  introBox.classList.add("content-fade-out");
     window.setTimeout(() => {
-      mainContainer.removeChild(introBox);
-    }, 200);
-    gameStart()
+      gameStart()
+    }, 500);
 
 });
 
 //Funktioner
 function gameStart() {
-  introBox.classList.add("content-fade-out");
+
+  mainContainer.replaceChildren();
   
   function countQuestionsPerCategory(category) {
     return quizArray.filter((q) => q.category === category).length;
@@ -74,6 +81,7 @@ function gameStart() {
   headerContainer.appendChild(pageTitle);
   
   const backgroundContainer = document.createElement('div')
+  backgroundContainer.classList.add("content-fade-in");
   backgroundContainer.id = 'background-container'
   mainContainer.appendChild(backgroundContainer)
 
@@ -121,7 +129,8 @@ function gameStart() {
     questions.textContent = `${category.questions} questions`;
     questions.id = "intro-text"
     backgroundContainer.appendChild(categoryContainer);
-    // categoryContainer.appendChild(questions)
+    // categoryContainer.appendChild(questions) 
+
 });
 
 
@@ -137,6 +146,7 @@ function gameStart() {
   let score = 0;
 
   categoryContainer.addEventListener("click", (e) => {
+
     // Undviker att fånga andra klick i containern
     const categoryBtn = e.target.closest("button");
 

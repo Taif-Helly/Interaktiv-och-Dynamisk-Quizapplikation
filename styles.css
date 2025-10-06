@@ -1,6 +1,8 @@
 *{
     box-sizing: border-box;
 }
+
+/* Importorterar och definierar eget typsnitt */
 @font-face {
     font-family: 'TitleFont';
     src: url('fonts/KiwiSoda.ttf') format('truetype')
@@ -15,7 +17,7 @@
     font-family: 'MenuFont';
     src: url('fonts/Code.ttf') format('truetype')
 }
-
+/* Skapar och definierar fade-in/out animationer */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -27,21 +29,31 @@
 }
 
 .intro-fade-in {
-    animation: fadeIn 2.5s forwards;
+    animation: fadeIn 1.2s forwards ease-out;
 }
 .content-fade-in {
-    animation: fadeIn 1.4s forwards;
+    animation: fadeIn 1.3s forwards ease-out;
 }
 .content-fade-out {
-    animation: fadeOut 0.5s forwards;
+    animation: fadeOut 0.4s forwards ease-out;
 }
 
-
+/* Styling för body och containers */
 
 body {
-    background-color: rgb(255, 255, 255);
+    background-image: url("images/djungle-BG.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px 10px 10px;
+    gap: 0%;
+}
 #background-container {
     display: flex;
     flex-grow: 1;
@@ -54,31 +66,33 @@ body {
 
     background: linear-gradient(
         to right bottom,
-        rgba(12, 187, 218, 0.822),
-        rgb(176, 222, 230),
-        rgba(12, 187, 218, 0.822)
+        rgb(111, 147, 153) 0%,
+        rgb(131, 214, 226) 25%,
+        rgb(196, 214, 218) 50%,
+        rgb(131, 214, 226) 75%,
+        rgb(111, 147, 153) 100%
+    );
+
+    background: linear-gradient(
+        to right bottom,
+        rgb(111, 147, 153) 0%,
+        rgb(131, 214, 226) 25%,
+        rgb(196, 214, 218) 50%,
+        rgb(131, 214, 226) 75%,
+        rgb(111, 147, 153) 100%
     );
 
     border-radius: 12px;
-    border: 4px solid rgb(198, 220, 224);
+    border: 2px solid rgba(178, 205, 216, 0.521);
 
-    box-shadow: -3px 3px 8px rgba(0, 0, 0, 0.39);
+    box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.219);
 
     user-select: none;
 
-    transition: flex-grow;
+    transition: 1s ease-in-out;
 }
 
-#main-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0%;
-    align-items: center;
-    justify-content: center;
-    
-    /* background-color: green; */
-    padding: 10px 10px 10px 10px;
-}
+/* Styling för alla textobjekt */
 
 #logo-text {
     position: relative;
@@ -140,7 +154,6 @@ h2 {
     font-size: 2rem;
     letter-spacing: 0.3rem;
     user-select: none;
-    
 }
 
 #intro-text {
@@ -170,6 +183,9 @@ h2 {
     
     -webkit-text-stroke: 0.2px black;
 }
+
+/* Styling för knappar och deras containers */
+
 #start-button:hover {
     transform: scale(1.02);
     transition: 0.3s ease-out;
@@ -216,9 +232,9 @@ h2 {
     margin-bottom: 3%;
     text-align: center;
     font-family: 'TitleFont';
-    font-size: 3rem;
+    font-size: 3.5rem;
     letter-spacing: 0.3rem;
-    color: rgb(92, 142, 151);
+    color: rgb(255, 255, 255);
     text-shadow: -4px 4px  rgb(0, 0, 0);
     user-select: none;    
 }
@@ -241,7 +257,6 @@ h2 {
     font-size: 1.4rem;
     line-height: 2rem;
     letter-spacing: 0.5rem;
-
 }
 
 #answerDiv {
@@ -271,14 +286,22 @@ h2 {
     line-height: 20px;
     text-shadow: -2px 2px 2px rgb(255, 255, 255);
 
-    background: linear-gradient(
+    /* background: linear-gradient(
         to right bottom,
         rgb(111, 147, 153) 0%,
         rgb(131, 214, 226) 25%,
         rgb(196, 214, 218) 50%,
         rgb(131, 214, 226) 75%,
         rgb(111, 147, 153) 100%
+    ); */
+
+    background: linear-gradient(
+        to right bottom,
+        rgba(12, 187, 218),
+        rgb(176, 222, 230),
+        rgba(12, 187, 218)
     );
+
 
     border-radius: 12px;
     border: 2px solid rgba(178, 205, 216, 0.521);
