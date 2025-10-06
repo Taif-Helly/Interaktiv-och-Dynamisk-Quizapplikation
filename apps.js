@@ -233,12 +233,14 @@ function gameStart() {
 
       backgroundContainer.appendChild(answerDiv);
     } else {
-
+      const topList = localStorage.getItem('pastScore')
+      localStorage.setItem('pastScore', score)
+      
       pageTitle.textContent = "Thank's for playing!"
       const scoreEL = document.createElement("p");
       scoreEL.id = "intro-text";
       scoreEL.classList.add("content-fade-in")
-      scoreEL.textContent = `Your right answers are ${score} out of ${filteredQuestions.length}`;
+      scoreEL.textContent = `Your right answers are ${score} out of ${filteredQuestions.length}. Your best score is: ${topList}`;
       backgroundContainer.appendChild(scoreEL);
 
       const restartButton = document.createElement('button');

@@ -1,4 +1,5 @@
 export const quizArray = [
+  // 🧠 CODING (9 frågor)
   {
     id: "codingMedium1",
     question: "Which of the following is a programming language?",
@@ -44,6 +45,45 @@ export const quizArray = [
     category: "Coding",
     difficulty: "medium",
   },
+  {
+    id: "codingMedium6",
+    question: "Which symbol is used for comments in JavaScript?",
+    answers: ["//", "#", "<!-- -->", "/* */"],
+    rightAnswer: 0,
+    category: "Coding",
+    difficulty: "medium",
+  },
+  {
+    id: "codingMedium7",
+    question: "Which keyword is used to declare a constant in JavaScript?",
+    answers: ["const", "let", "var", "static"],
+    rightAnswer: 0,
+    category: "Coding",
+    difficulty: "medium",
+  },
+  {
+    id: "codingMedium8",
+    question: "Which of the following is a JavaScript framework?",
+    answers: ["React", "Django", "Laravel", "Flask"],
+    rightAnswer: 0,
+    category: "Coding",
+    difficulty: "medium",
+  },
+  {
+    id: "codingMedium9",
+    question: "Which of these is a correct way to declare an array in JavaScript?",
+    answers: [
+      "let arr = []",
+      "let arr = {}",
+      "let arr = ()",
+      "let arr = <>",
+    ],
+    rightAnswer: 0,
+    category: "Coding",
+    difficulty: "medium",
+  },
+
+  // 🎮 GAMING (9 frågor)
   {
     id: "gamingMedium1",
     question: "Which console was created by Sony?",
