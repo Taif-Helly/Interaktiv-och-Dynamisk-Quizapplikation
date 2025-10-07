@@ -62,7 +62,6 @@ function shuffle(array) {
   return array.slice().sort(() => Math.random() -0.5);
 }
 
-
 // Laddar in all ovansttående kod och kör funktionen, lägger till eventlistener till startknappen
 
 startPageLoad();
