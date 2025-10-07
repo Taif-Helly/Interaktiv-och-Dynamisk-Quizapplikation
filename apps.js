@@ -57,6 +57,12 @@ function startPageLoad() {
   }, 1500);
 }
 
+// Ny funktion som ska shuffla frågorna in i en ny array med slice
+function shuffle(array) {
+  return array.slice().sort(() => Math.random() -0.5);
+}
+
+
 // Laddar in all ovansttående kod och kör funktionen, lägger till eventlistener till startknappen
 
 startPageLoad();
@@ -161,10 +167,20 @@ function gameStart() {
 
       //   headerContainer.appendChild(chosenQuizParameters)
 
+      // Lagt in ny logik för filtererdQuestions
       // Filtrerar ut frågorna utifrån valda kriterier
-      filteredQuestions = quizArray.filter(
-        (quizArray) => quizArray.category === currentCategory
-      );
+      // Använder .map för att skapa en ny array utifrån det vi filtrerat, sedan shuffla svaren från KOPIAN tack vare ...q i en variabel
+      // Kollar rätt svar innan blandningen och sparar ner den
+      // "rightAnswer:" är nu ett nytt index för det rätta svaret
+      filteredQuestions = shuffle(
+        quizArray.filter(q => q.category === currentCategory))
+        .map(q => {
+          const answers = shuffle([...q.answers]);
+          const correctValue = q.answers[q.rightAnswer];
+          return {
+            ...q, answers, rightAnswer: answers.indexOf(correctValue)
+          };
+        });
 
       currentQuestionIndex = 0;
 
@@ -271,4 +287,3 @@ function gameStart() {
     }
   }
 }
-//ksdfnslkdf   sdfsdofjdsmfe
