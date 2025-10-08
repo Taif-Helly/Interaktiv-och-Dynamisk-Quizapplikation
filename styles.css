@@ -625,7 +625,26 @@ h2 {
 
     }
 
+
+
+
+
 }
 
-
+    /* Timer-stilen som motsvarar dina inline-styles */
+    .timer {
+  margin: 8px 0 16px;
+  font-family: 'MenuFont', system-ui, sans-serif;
+  font-size: 1.5rem;
+  padding: 6px 14px;
+  border: 2px solid rgba(178, 205, 216, 0.521);
+  border-radius: 12px;
+  background: linear-gradient(
+    to right bottom,
+    rgba(12, 187, 218, 0.82),
+    rgb(176, 222, 230),
+    rgba(12, 187, 218, 0.82)
+  );
+  box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.22);
+}
 

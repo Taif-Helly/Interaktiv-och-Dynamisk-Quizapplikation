@@ -1,14 +1,11 @@
 import { quizArray } from "./array.js";
 
 // Skapar variablar för containers & länkar med CSS
-
 const headerContainer = document.getElementById("header-container");
 const mainContainer = document.getElementById("main-container");
-
 const mainBody = document.getElementById("body");
 
 // Skapar logon & textruta med startknapp & länkar med CSS
-
 const logo = document.createElement("h1");
 logo.id = "logo-text";
 logo.textContent = "Geekqwizz";
@@ -28,7 +25,6 @@ const introContent =
 
 const startButton = document.createElement("p");
 startButton.id = "start-button";
-
 startButton.textContent = "Click here to start!";
 
 const creatorsText1 = document.createElement("p");
@@ -44,9 +40,7 @@ creatorsText1.textContent = creatorsContent1;
 creatorsText2.textContent = creatorsContent2;
 
 introBox.appendChild(introText);
-
 introBox.appendChild(startButton);
-
 introBox.appendChild(creatorsText1);
 introBox.appendChild(creatorsText2);
 
@@ -62,8 +56,26 @@ function shuffle(array) {
   return array.slice().sort(() => Math.random() -0.5);
 }
 
-// Laddar in all ovansttående kod och kör funktionen, lägger till eventlistener till startknappen
+const duckAudio = new Audio("./quacks.mp3"); 
+duckAudio.preload = "auto";
+duckAudio.volume = 0.9;
 
+function playDuckLocal(duration) {
+  try {
+    duckAudio.currentTime = 0;  // starta från början
+    duckAudio.play();
+    if (duration) {
+      setTimeout(() => {
+        duckAudio.pause();
+        duckAudio.currentTime = 0; // återställ till början
+      }, duration);
+    }
+  } catch (e) {
+    console.warn("Audio autoplay blockerat:", e);
+  }
+}
+
+// Laddar in all ovansttående kod och kör funktionen, lägger till eventlistener till startknappen
 startPageLoad();
 
 startButton.addEventListener("click", () => {
@@ -73,7 +85,7 @@ startButton.addEventListener("click", () => {
   }, 500);
 });
 
-//Funktioner
+// ======================= SPELLOGIK =======================
 function gameStart() {
   mainContainer.replaceChildren();
 
@@ -146,6 +158,48 @@ function gameStart() {
   let currentQuestionIndex = 0;
   let score = 0;
 
+  // ======== TIMER: state + hjälpfunktioner (visas endast under frågor) ========
+  let questionTimerId = null;
+  let timerEl = null;
+
+  //skapar/definerar funtionen
+  function clearQuestionTimer() {       
+    if (questionTimerId) { 
+      clearInterval(questionTimerId); //En städ funktion som stoppar intervallet och tar bort timern från sidan//
+      questionTimerId = null;
+    }
+    if (timerEl && timerEl.parentNode) {
+      timerEl.parentNode.removeChild(timerEl);
+      timerEl = null;
+    }
+  }
+
+  //Använder/kör funktionen
+  function startQuestionTimer(seconds, onTimeout) {
+    clearQuestionTimer(); // Säkerställ att ingen gammal timer lever vidare
+
+    // Skapa enkel timer UI ovanför frågan
+    timerEl = document.createElement("div");
+    timerEl.className = "timer";
+    timerEl.textContent = `Time Left: ${seconds}s`;
+
+    // Placering in i backgroundContainer överst
+    backgroundContainer.prepend(timerEl);
+
+    let timeLeft = seconds;
+    questionTimerId = setInterval(() => {
+      timeLeft -= 1;
+      if (timeLeft > 0) {
+        timerEl.textContent = `Time Left: ${timeLeft}s`;
+      } else {
+        timerEl.textContent = "Time Left:0s";
+        clearQuestionTimer();
+        onTimeout && onTimeout(); //extra säkerhet
+      }
+    }, 1000);
+  }
+  // ======== SLUT TIMER ========
+
   categoryContainer.addEventListener("click", (e) => {
     // Undviker att fånga andra klick i containern
     const categoryBtn = e.target.closest("button");
@@ -155,13 +209,11 @@ function gameStart() {
 
       clearMainContainer();
 
-      // Använder .find för att hitta kategorier och svårighetsgrad utifrån currentCategory och currentDifficulty som man klickade i när man valde
-      // Spottar ut det man valt i en ny div (header-container) som nu ligger över main-container.
+      // Hitta kategori, visa rubrik och filtrera frågor
       const showCategory = quizArray.find(
         (cat) => cat.category === currentCategory
       );
 
-      //   const chosenQuizParameters = document.createElement("h2")
       pageTitle.textContent = `${showCategory.category}`;
 
       //   headerContainer.appendChild(chosenQuizParameters)
@@ -182,15 +234,30 @@ function gameStart() {
         });
 
       currentQuestionIndex = 0;
-
       showQuestion();
     }
   });
+
+  // Gemensam navigering till nästa fråga (används av klick OCH timeout)
+  function goToNextQuestion(questionContainer, answerDiv) {
+    // Fade ut och gå vidare
+    if (questionContainer) questionContainer.classList.add("content-fade-out");
+    if (answerDiv) answerDiv.classList.add("content-fade-out");
+
+    setTimeout(() => {
+      currentQuestionIndex++;
+      clearMainContainer();
+      if (answerDiv) answerDiv.classList.remove("content-fade-out");
+      if (questionContainer) questionContainer.classList.remove("content-fade-out");
+      showQuestion();
+    }, 400);
+  }
 
   function showQuestion() {
     const question = filteredQuestions[currentQuestionIndex];
 
     if (question) {
+      let answeredThisQuestion = false; 
       const questionContainer = document.createElement("div");
       questionContainer.id = "question-container";
 
@@ -204,6 +271,15 @@ function gameStart() {
       const answerDiv = document.createElement("div");
       answerDiv.id = "answerDiv";
 
+      // === Starta timer för den här frågan ===
+      startQuestionTimer(10, () => {
+        if (!answeredThisQuestion) {
+        playDuckLocal(1800);     // <-- spelar quack
+      } 
+        // När tiden är slut, gå vidare till nästa fråga, annars går den vidare utan timer.
+        goToNextQuestion(questionContainer, answerDiv);
+      });
+
       question.answers.forEach((answer, index) => {
         const answerButton = document.createElement("button");
         answerButton.textContent = answer;
@@ -212,6 +288,7 @@ function gameStart() {
         answerButton.classList.add("content-fade-in");
 
         answerButton.addEventListener("click", (e) => {
+        answeredThisQuestion = true; 
           const clickedAnswer = Number(e.target.dataset.index);
           const correctAnswer = question.rightAnswer;
 
@@ -222,23 +299,16 @@ function gameStart() {
             answerButton.id = "wrong-btn";
           }
 
-          setTimeout(() => {
-            questionContainer.classList.add("content-fade-out");
-            answerDiv.classList.add("content-fade-out");
-          }, 2000);
-          setTimeout(() => {
-            currentQuestionIndex++;
-            clearMainContainer();
-            answerDiv.classList.remove("content-fade-out");
-            questionContainer.classList.remove("content-fade-out");
-            showQuestion();
-          }, 400);
+          // Gå vidare (snabb fade)
+          goToNextQuestion(questionContainer, answerDiv);
         });
+
         answerDiv.appendChild(answerButton);
       });
 
       backgroundContainer.appendChild(answerDiv);
     } else {
+
       pageTitle.textContent = "Thank's for playing!";
       const scoreEL = document.createElement("p");
       scoreEL.id = "intro-text";
@@ -246,20 +316,20 @@ function gameStart() {
       scoreEL.textContent = `Your right answers are ${score} out of ${filteredQuestions.length}.`;
       backgroundContainer.appendChild(scoreEL);
 
-      const highScore = parseFloat(localStorage.getItem('highScore')) || 0
+      const highScore = parseFloat(localStorage.getItem("highScore")) || 0;
 
       if (score > highScore) {
-        localStorage.setItem('highScore', score)
-        const highScoreEL = document.createElement("p")
-        highScoreEL.id = "intro-text"
-        highScoreEL.classList.add("content-fade-in")
+        localStorage.setItem("highScore", score);
+        const highScoreEL = document.createElement("p");
+        highScoreEL.id = "intro-text";
+        highScoreEL.classList.add("content-fade-in");
         highScoreEL.textContent = `Your new high score is ${score}!`;
         backgroundContainer.appendChild(highScoreEL);
       } else {
-        const highScoreEL = document.createElement("p")
-        highScoreEL.id = "intro-text"
-        highScoreEL.classList.add("content-fade-in")
-        highScoreEL.textContent = `Your high score: ${highScore}`
+        const highScoreEL = document.createElement("p");
+        highScoreEL.id = "intro-text";
+        highScoreEL.classList.add("content-fade-in");
+        highScoreEL.textContent = `Your high score: ${highScore}`;
         backgroundContainer.appendChild(highScoreEL);
       }
 
@@ -270,6 +340,7 @@ function gameStart() {
       backgroundContainer.appendChild(restartButton);
 
       restartButton.addEventListener("click", () => {
+  
         backgroundContainer.classList.add("content-fade-out");
         pageTitle.classList.add("content-fade-out");
         mainContainer.classList.add("content-fade-in");
