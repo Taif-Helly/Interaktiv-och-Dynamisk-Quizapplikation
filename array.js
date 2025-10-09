@@ -1,5 +1,5 @@
 export const quizArray = [
-  // 🧠 CODING (9 frågor)
+  // CODING
   {
     id: "codingMedium1",
     question: "Which of the following is a programming language?",
@@ -71,19 +71,15 @@ export const quizArray = [
   },
   {
     id: "codingMedium9",
-    question: "Which of these is a correct way to declare an array in JavaScript?",
-    answers: [
-      "let arr = []",
-      "let arr = {}",
-      "let arr = ()",
-      "let arr = <>",
-    ],
+    question:
+      "Which of these is a correct way to declare an array in JavaScript?",
+    answers: ["let arr = []", "let arr = {}", "let arr = ()", "let arr = <>"],
     rightAnswer: 0,
     category: "Coding",
     difficulty: "medium",
   },
 
-  // 🎮 GAMING (9 frågor)
+  // GAMING
   {
     id: "gamingMedium1",
     question: "Which console was created by Sony?",

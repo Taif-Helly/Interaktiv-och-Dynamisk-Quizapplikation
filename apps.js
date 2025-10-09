@@ -1,11 +1,9 @@
 import { quizArray } from "./array.js";
 
-// Skapar variablar för containers & länkar med CSS
 const headerContainer = document.getElementById("header-container");
 const mainContainer = document.getElementById("main-container");
-const mainBody = document.getElementById("body");
 
-// Skapar logon & textruta med startknapp & länkar med CSS
+// LOGO
 const logo = document.createElement("h1");
 logo.id = "logo-text";
 logo.textContent = "Geekqwizz";
@@ -15,6 +13,7 @@ window.setTimeout(() => {
   headerContainer.appendChild(logo);
 }, 500);
 
+// STARTSIDA
 const introBox = document.createElement("div");
 introBox.id = "intro-box";
 
@@ -44,6 +43,7 @@ introBox.appendChild(startButton);
 introBox.appendChild(creatorsText1);
 introBox.appendChild(creatorsText2);
 
+// Animation när startsidan laddas in
 function startPageLoad() {
   setTimeout(() => {
     introBox.classList.add("intro-fade-in");
@@ -51,18 +51,20 @@ function startPageLoad() {
   }, 1500);
 }
 
-// Ny funktion som ska shuffla frågorna in i en ny array med slice
+// FUNKTIONER
+// Funktion shufflar frågorna in i en ny array med slice
 function shuffle(array) {
-  return array.slice().sort(() => Math.random() -0.5);
+  return array.slice().sort(() => Math.random() - 0.5);
 }
 
-const duckAudio = new Audio("./quacks.mp3"); 
+// Ljudeffekt när spelaren inte väljer ett svarsalternativ i quizet
+const duckAudio = new Audio("./quacks.mp3");
 duckAudio.preload = "auto";
 duckAudio.volume = 0.9;
 
 function playDuckLocal(duration) {
   try {
-    duckAudio.currentTime = 0;  // starta från början
+    duckAudio.currentTime = 0; // starta från början
     duckAudio.play();
     if (duration) {
       setTimeout(() => {
@@ -78,6 +80,7 @@ function playDuckLocal(duration) {
 // Laddar in all ovansttående kod och kör funktionen, lägger till eventlistener till startknappen
 startPageLoad();
 
+// Animation när quizet startas
 startButton.addEventListener("click", () => {
   introBox.classList.add("content-fade-out");
   window.setTimeout(() => {
@@ -85,8 +88,9 @@ startButton.addEventListener("click", () => {
   }, 500);
 });
 
-// ======================= SPELLOGIK =======================
+// QUIZET
 function gameStart() {
+  // Rensar mainContainer
   mainContainer.replaceChildren();
 
   function countQuestionsPerCategory(category) {
@@ -112,13 +116,11 @@ function gameStart() {
   const categories = [
     {
       value: "Coding",
-      // title: 'Coding',
       description: "Everything about code",
       questions: countQuestionsPerCategory("Coding"),
     },
     {
       value: "Gaming",
-      // title: 'Gaming',
       description: "Everything about video games",
       questions: countQuestionsPerCategory("Gaming"),
     },
@@ -141,31 +143,26 @@ function gameStart() {
     btn.appendChild(description);
 
     categoryContainer.appendChild(btn);
-    const questions = document.createElement("p");
-    questions.textContent = `${category.questions} questions`;
-    questions.id = "intro-text";
     backgroundContainer.appendChild(categoryContainer);
-    // categoryContainer.appendChild(questions)
   });
 
-  // ---------------- KATEGORIVAL OCH FRÅGOR ----------------
-
-  function clearMainContainer() {
+  // Rensar backgroundContainer
+  function clearBackgroundContainer() {
     backgroundContainer.replaceChildren();
   }
 
+  // Frågevariabler
   let filteredQuestions = [];
   let currentQuestionIndex = 0;
   let score = 0;
 
-  // ======== TIMER: state + hjälpfunktioner (visas endast under frågor) ========
+  // TIMER
   let questionTimerId = null;
   let timerEl = null;
 
-  //skapar/definerar funtionen
-  function clearQuestionTimer() {       
-    if (questionTimerId) { 
-      clearInterval(questionTimerId); //En städ funktion som stoppar intervallet och tar bort timern från sidan//
+  function clearQuestionTimer() {
+    if (questionTimerId) {
+      clearInterval(questionTimerId); // Stoppar intervallet och tar bort timern
       questionTimerId = null;
     }
     if (timerEl && timerEl.parentNode) {
@@ -174,16 +171,13 @@ function gameStart() {
     }
   }
 
-  //Använder/kör funktionen
   function startQuestionTimer(seconds, onTimeout) {
-    clearQuestionTimer(); // Säkerställ att ingen gammal timer lever vidare
+    clearQuestionTimer(); // Säkerställer att gamla timers inte lever vidare
 
-    // Skapa enkel timer UI ovanför frågan
     timerEl = document.createElement("div");
     timerEl.className = "timer";
     timerEl.textContent = `Time Left: ${seconds}s`;
 
-    // Placering in i backgroundContainer överst
     backgroundContainer.prepend(timerEl);
 
     let timeLeft = seconds;
@@ -194,12 +188,12 @@ function gameStart() {
       } else {
         timerEl.textContent = "Time Left:0s";
         clearQuestionTimer();
-        onTimeout && onTimeout(); //extra säkerhet
+        onTimeout && onTimeout(); // Extra säkerhet
       }
     }, 1000);
   }
-  // ======== SLUT TIMER ========
 
+  // KATEGORIVAL
   categoryContainer.addEventListener("click", (e) => {
     // Undviker att fånga andra klick i containern
     const categoryBtn = e.target.closest("button");
@@ -207,7 +201,7 @@ function gameStart() {
     if (categoryBtn) {
       const currentCategory = categoryBtn.value;
 
-      clearMainContainer();
+      clearBackgroundContainer();
 
       // Hitta kategori, visa rubrik och filtrera frågor
       const showCategory = quizArray.find(
@@ -216,48 +210,48 @@ function gameStart() {
 
       pageTitle.textContent = `${showCategory.category}`;
 
-      //   headerContainer.appendChild(chosenQuizParameters)
-
-      // Lagt in ny logik för filtererdQuestions
-      // Filtrerar ut frågorna utifrån valda kriterier
-      // Använder .map för att skapa en ny array utifrån det vi filtrerat, sedan shuffla svaren från KOPIAN tack vare ...q i en variabel
-      // Kollar rätt svar innan blandningen och sparar ner den
-      // "rightAnswer:" är nu ett nytt index för det rätta svaret
+      // Filtrerar ut frågorna och shufflar, för varje fråga (q) skapar vi en ny fråga med slumpade svarsalternativ.
+      // Kollar rätt svar innan blandningen och sparar ner den.
       filteredQuestions = shuffle(
-        quizArray.filter(q => q.category === currentCategory))
-        .map(q => {
-          const answers = shuffle([...q.answers]);
-          const correctValue = q.answers[q.rightAnswer];
-          return {
-            ...q, answers, rightAnswer: answers.indexOf(correctValue)
-          };
-        });
+        quizArray.filter((q) => q.category === currentCategory)
+      ).map((q) => {
+        const answers = shuffle([...q.answers]);
+        const correctValue = q.answers[q.rightAnswer];
+        return {
+          ...q,
+          answers,
+          rightAnswer: answers.indexOf(correctValue),
+        };
+      });
 
       currentQuestionIndex = 0;
       showQuestion();
     }
   });
 
-  // Gemensam navigering till nästa fråga (används av klick OCH timeout)
+  // FRÅGORNA
+  // Navigerar till nästa fråga (används av klick OCH timeout)
   function goToNextQuestion(questionContainer, answerDiv) {
-    // Fade ut och gå vidare
     if (questionContainer) questionContainer.classList.add("content-fade-out");
     if (answerDiv) answerDiv.classList.add("content-fade-out");
 
     setTimeout(() => {
       currentQuestionIndex++;
-      clearMainContainer();
+      clearBackgroundContainer();
       if (answerDiv) answerDiv.classList.remove("content-fade-out");
-      if (questionContainer) questionContainer.classList.remove("content-fade-out");
+      if (questionContainer)
+        questionContainer.classList.remove("content-fade-out");
       showQuestion();
     }, 400);
   }
 
+  // Visar frågorna
   function showQuestion() {
+    // Visar den fråga som shufflas fram
     const question = filteredQuestions[currentQuestionIndex];
 
     if (question) {
-      let answeredThisQuestion = false; 
+      let answeredThisQuestion = false;
       const questionContainer = document.createElement("div");
       questionContainer.id = "question-container";
 
@@ -271,15 +265,16 @@ function gameStart() {
       const answerDiv = document.createElement("div");
       answerDiv.id = "answerDiv";
 
-      // === Starta timer för den här frågan ===
-      startQuestionTimer(10, () => {
+      // Starta timer för frågan
+      startQuestionTimer(5, () => {
         if (!answeredThisQuestion) {
-        playDuckLocal(1800);     // <-- spelar quack
-      } 
-        // När tiden är slut, gå vidare till nästa fråga, annars går den vidare utan timer.
+          playDuckLocal(1800); // Spelar ljudeffekt
+        }
+        // När tiden är slut, gå vidare till nästa fråga
         goToNextQuestion(questionContainer, answerDiv);
       });
 
+      // SVARSALTERNATIV
       question.answers.forEach((answer, index) => {
         const answerButton = document.createElement("button");
         answerButton.textContent = answer;
@@ -288,10 +283,11 @@ function gameStart() {
         answerButton.classList.add("content-fade-in");
 
         answerButton.addEventListener("click", (e) => {
-        answeredThisQuestion = true; 
+          answeredThisQuestion = true;
           const clickedAnswer = Number(e.target.dataset.index);
           const correctAnswer = question.rightAnswer;
 
+          // Kollar om användarens svar är rätt svar, om ja: lägger till poäng, och visar rätt/fel visuellt
           if (clickedAnswer === correctAnswer) {
             score++;
             answerButton.id = "correct-btn";
@@ -299,7 +295,7 @@ function gameStart() {
             answerButton.id = "wrong-btn";
           }
 
-          // Gå vidare (snabb fade)
+          // Går till nästa fråga
           goToNextQuestion(questionContainer, answerDiv);
         });
 
@@ -308,17 +304,21 @@ function gameStart() {
 
       backgroundContainer.appendChild(answerDiv);
     } else {
-
-      pageTitle.textContent = "Thank's for playing!";
+      // RESULTATSIDA
+      pageTitle.textContent = "Thanks for playing!";
       const scoreEL = document.createElement("p");
       scoreEL.id = "intro-text";
       scoreEL.classList.add("content-fade-in");
+      // Visar hur många rätt svar användaren hade av totala frågorna
       scoreEL.textContent = `Your right answers are ${score} out of ${filteredQuestions.length}.`;
       backgroundContainer.appendChild(scoreEL);
 
+      // Hämtar highscore från localStorage (om det inte finns ett highscore, är highscore 0)
       const highScore = parseFloat(localStorage.getItem("highScore")) || 0;
 
+      // Kollar om användarens poäng är ett nytt highscore eller inte
       if (score > highScore) {
+        // Sätter nytt highscore i localStorage
         localStorage.setItem("highScore", score);
         const highScoreEL = document.createElement("p");
         highScoreEL.id = "intro-text";
@@ -339,8 +339,8 @@ function gameStart() {
       restartButton.classList.add("content-fade-in");
       backgroundContainer.appendChild(restartButton);
 
+      // Kör om quizet när användaren klickar på restart-knappen
       restartButton.addEventListener("click", () => {
-  
         backgroundContainer.classList.add("content-fade-out");
         pageTitle.classList.add("content-fade-out");
         mainContainer.classList.add("content-fade-in");
