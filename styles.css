@@ -413,10 +413,9 @@ h2 {
 }
 
 #main-container {
-    width: 90%;
-    margin: 0 auto;
+  width: 90%;
+  margin: 0 auto;
 }
-
 
 /* Media querys */
 @media screen and (max-width: 600px) {
@@ -438,7 +437,7 @@ h2 {
     padding-bottom: 1%;
     letter-spacing: 8px;
   }
-  
+
   #intro-box {
     display: flex;
     flex-direction: column;
@@ -627,7 +626,7 @@ h2 {
 
 /* Timer-stilen som motsvarar dina inline-styles */
 .timer {
-    text-align: center;
+  text-align: center;
   margin: 8px 0 16px;
   font-family: "MenuFont", system-ui, sans-serif;
   font-size: 1rem;
@@ -642,8 +641,9 @@ h2 {
   );
   box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.22);
 }
+
 #main-container {
-    max-height: fit-content;
-    width: 90%;
-    margin: 0 auto;
+  max-height: fit-content;
+  width: 90%;
+  margin: 0 auto;
 }
