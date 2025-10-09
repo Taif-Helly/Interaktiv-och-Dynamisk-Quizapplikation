@@ -286,6 +286,7 @@ function gameStart() {
           answeredThisQuestion = true;
           const clickedAnswer = Number(e.target.dataset.index);
           const correctAnswer = question.rightAnswer;
+          const correctButton = document.querySelector(`[data-index='${correctAnswer}']`); // Hittar knappen med rätt svar
 
           // Kollar om användarens svar är rätt svar, om ja: lägger till poäng, och visar rätt/fel visuellt
           if (clickedAnswer === correctAnswer) {
@@ -293,6 +294,7 @@ function gameStart() {
             answerButton.id = "correct-btn";
           } else {
             answerButton.id = "wrong-btn";
+            correctButton.id = "correct-btn"; // Visar rätt svar när man svarar fel
           }
 
           // Går till nästa fråga
