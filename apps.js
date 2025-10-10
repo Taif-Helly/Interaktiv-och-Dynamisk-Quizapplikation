@@ -272,12 +272,8 @@ function gameStart() {
           answeredThisQuestion = true;
           const clickedAnswer = Number(e.target.dataset.index);
           const correctAnswer = question.rightAnswer;
-<<<<<<< HEAD
-          
-=======
           const correctButton = document.querySelector(`[data-index='${correctAnswer}']`); // Hittar knappen med rätt svar
 
->>>>>>> 7bd62db139ac214e8671646cefa75b60b84f2646
           // Kollar om användarens svar är rätt svar, om ja: lägger till poäng, och visar rätt/fel visuellt
           if (clickedAnswer === correctAnswer) {
             score++;
