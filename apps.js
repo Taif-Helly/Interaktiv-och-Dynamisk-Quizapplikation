@@ -240,18 +240,24 @@ function gameStart() {
       const questionContainer = document.createElement("div");
       questionContainer.id = "question-container";
 
+      const questionNumberEl = document.createElement("p");
+      questionNumberEl.id = "question-number";
+      questionNumberEl.classList.add("content-fade-in");
+      questionNumberEl.textContent = `Question ${currentQuestionIndex + 1} of ${filteredQuestions.length}`;
+
       const questionText = document.createElement("h2");
       questionText.textContent = question.question;
       questionText.classList.add("content-fade-in");
 
       backgroundContainer.appendChild(questionContainer);
+      questionContainer.appendChild(questionNumberEl);
       questionContainer.appendChild(questionText);
 
       const answerDiv = document.createElement("div");
       answerDiv.id = "answerDiv";
 
       // Starta timer för frågan
-      startQuestionTimer(5, () => {
+      startQuestionTimer(20, () => {
         if (!answeredThisQuestion) {
           playDuckLocal(1800); // Spelar ljudeffekt
         }
@@ -313,13 +319,25 @@ function gameStart() {
         const highScoreEL = document.createElement("p");
         highScoreEL.id = "intro-text";
         highScoreEL.classList.add("content-fade-in");
-        highScoreEL.textContent = `Your new high score is ${score}!`;
+
+        if (score === filteredQuestions.length) {
+          highScoreEL.textContent = `MAX SCORE! You reached ${score}!`
+        } else {
+          highScoreEL.textContent = `Your new high score is ${score}!`;
+        }
+
         backgroundContainer.appendChild(highScoreEL);
       } else {
         const highScoreEL = document.createElement("p");
         highScoreEL.id = "intro-text";
         highScoreEL.classList.add("content-fade-in");
-        highScoreEL.textContent = `Your high score: ${highScore}`;
+
+        if (highScore === filteredQuestions.length) {
+          highScoreEL.textContent = `Your high score: ${highScore} (MAX SCORE)!`;
+        } else {
+          highScoreEL.textContent = `Your high score: ${highScore}`;
+        }
+
         backgroundContainer.appendChild(highScoreEL);
       }
 

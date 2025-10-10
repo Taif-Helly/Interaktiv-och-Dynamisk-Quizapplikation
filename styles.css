@@ -243,8 +243,9 @@ h2 {
   display: flex;
   width: 800px;
   height: 150px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-direction: column;
 }
 
 #title-text {
@@ -410,6 +411,7 @@ h2 {
 
 /* Timer-stilen som motsvarar dina inline-styles */
 .timer {
+  width: 240px;
   display: sticky;
   text-align: center;
   margin: 8px 0 16px;
@@ -425,6 +427,14 @@ h2 {
     rgba(12, 187, 218, 0.82)
   );
   box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.22);
+}
+
+#question-number {
+  text-align: center;
+  margin: 8px 0 16px;
+  font-family: "MenuFont", system-ui, sans-serif;
+  font-size: 1.2rem;
+  padding: 6px 14px;
 }
 
 /* Media querys */
@@ -579,6 +589,11 @@ h2 {
     margin-top: 10px;
     margin-bottom: 15px;
   }
+  
+  #question-number {
+    margin: 0 0 40px;
+    padding: 0;
+}
 
   h2 {
     margin: 0 auto;
