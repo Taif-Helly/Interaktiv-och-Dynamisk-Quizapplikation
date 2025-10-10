@@ -268,7 +268,7 @@ function gameStart() {
         answerButton.classList.add("content-fade-in");
         
         answerButton.addEventListener("click", (e) => {
-          answerButton.style.userSelect = 'none';
+          if (answeredThisQuestion) return;
           answeredThisQuestion = true;
           const clickedAnswer = Number(e.target.dataset.index);
           const correctAnswer = question.rightAnswer;

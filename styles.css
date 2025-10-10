@@ -408,6 +408,25 @@ h2 {
   transition: 0.3s ease-out;
 }
 
+/* Timer-stilen som motsvarar dina inline-styles */
+.timer {
+  display: sticky;
+  text-align: center;
+  margin: 8px 0 16px;
+  font-family: "MenuFont", system-ui, sans-serif;
+  font-size: 1.2rem;
+  padding: 6px 14px;
+  border: 2px solid rgba(178, 205, 216, 0.521);
+  border-radius: 12px;
+  background: linear-gradient(
+    to right bottom,
+    rgba(12, 187, 218, 0.82),
+    rgb(176, 222, 230),
+    rgba(12, 187, 218, 0.82)
+  );
+  box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.22);
+}
+
 /* Media querys */
 @media only screen and (max-width: 600px) {
   body {
@@ -679,23 +698,4 @@ h2 {
   transition: 0.8s ease-out;
 }
 
-}
-
-/* Timer-stilen som motsvarar dina inline-styles */
-.timer {
-  display: sticky;
-  text-align: center;
-  margin: 8px 0 16px;
-  font-family: "MenuFont", system-ui, sans-serif;
-  font-size: 1.2rem;
-  padding: 6px 14px;
-  border: 2px solid rgba(178, 205, 216, 0.521);
-  border-radius: 12px;
-  background: linear-gradient(
-    to right bottom,
-    rgba(12, 187, 218, 0.82),
-    rgb(176, 222, 230),
-    rgba(12, 187, 218, 0.82)
-  );
-  box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.22);
 }
