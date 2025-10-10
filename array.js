@@ -31,7 +31,7 @@ export const quizArray = [
       "HighText Modern Language",
       "Hyper Transfer Machine Language",
       "HyperText Markup Language",
-      "Hyperlink Text Management Language",
+      "Hyperlink Text Makers List",
     ],
     rightAnswer: 2,
     category: "Coding",

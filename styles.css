@@ -52,12 +52,15 @@ body {
 }
 
 #main-container {
+  width: 90%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 10px 10px 10px 10px;
   gap: 0%;
+  max-height: fit-content;
 }
 
 #background-container {
@@ -263,6 +266,10 @@ h2 {
   margin-top: 2%;
 }
 
+/* #btn-text {
+
+} */
+
 #btn-style {
   width: 250px;
   height: 120px;
@@ -277,15 +284,6 @@ h2 {
   line-height: 20px;
   text-shadow: -2px 2px 2px rgb(255, 255, 255);
 
-  /* background: linear-gradient(
-        to right bottom,
-        rgb(111, 147, 153) 0%,
-        rgb(131, 214, 226) 25%,
-        rgb(196, 214, 218) 50%,
-        rgb(131, 214, 226) 75%,
-        rgb(111, 147, 153) 100%
-    ); */
-
   background: linear-gradient(
     to right bottom,
     rgba(12, 187, 218),
@@ -298,7 +296,6 @@ h2 {
 
   box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.219);
   box-sizing: border-box;
-  /* user-select: none; */
   cursor: pointer;
   transition: 0.3s ease-out;
 }
@@ -336,7 +333,6 @@ h2 {
 
   box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.219);
   box-sizing: border-box;
-  /* user-select: none; */
   cursor: pointer;
   transition: 0.8s ease-out;
 }
@@ -412,19 +408,13 @@ h2 {
   transition: 0.3s ease-out;
 }
 
-#main-container {
-    width: 90%;
-    margin: 0 auto;
-}
-
-
 /* Media querys */
-@media screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   body {
-    padding-top: 5%;
+    padding: 10% auto;
     display: flex;
     flex-direction: column;
-
+    justify-content: center;
     height: 100%;
 
     align-items: center;
@@ -446,8 +436,8 @@ h2 {
     align-items: center;
     position: relative;
     max-width: 90%;
-    margin: 5% auto;
-    padding: 10px 20px;
+    margin: 0 auto;
+    padding: 0 auto;
 
     background: linear-gradient(
       to right bottom,
@@ -467,8 +457,7 @@ h2 {
   }
 
   #intro-text {
-    margin-top: 0.5rem;
-    margin-bottom: 0px;
+    margin: 0 auto;
     max-width: fit-content;
 
     text-align: center;
@@ -486,12 +475,11 @@ h2 {
   #start-button {
     display: block;
     width: fit-content;
-    margin-top: 5%;
-    margin-bottom: 6%;
-    padding: 10px 40px;
+    margin: 10px auto;
+    padding: 5px;
     text-align: center;
     font-family: "MenuFont";
-    font-size: 24px;
+    font-size: 20px;
     color: rgb(233, 190, 82);
     text-shadow: -2px 2px 2px black;
 
@@ -513,13 +501,14 @@ h2 {
   }
 
   #background-container {
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     margin: 0 auto;
-    max-width: 700%;
+    max-height: 72vh;
 
     gap: 0%;
     padding: 20px;
@@ -539,9 +528,7 @@ h2 {
     box-shadow: -3px 3px 8px rgba(0, 0, 0, 0.39);
 
     user-select: none;
-
-    transition: flex-grow;
-  }
+    }
 
   #category-container {
     display: flex;
@@ -563,21 +550,22 @@ h2 {
   }
 
   #question-container {
-    display: flex;
-    flex-direction: row;
+    display: block;
+    width: 100%;
+    height: 100%;
     max-width: fit-content;
     max-height: fit-content;
-    justify-content: top;
+    justify-content: center;
     align-items: center;
     margin-top: 10px;
     margin-bottom: 15px;
   }
 
   h2 {
-    margin-top: 0 auto;
+    margin: 0 auto;
     text-align: center;
     font-family: "TitleFont";
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     letter-spacing: 0.3rem;
     user-select: none;
 
@@ -594,8 +582,8 @@ h2 {
   }
 
   #btn-style {
-    width: 100%;
-    height: 100%;
+    width: 250px;
+    height: 60px;
     margin-left: 2%;
     margin-right: 2%;
     margin-top: 3%;
@@ -605,6 +593,7 @@ h2 {
     font-size: 1rem;
     font-family: "MenuFont";
     line-height: 20px;
+    text-align: c;
     text-shadow: -2px 2px 2px rgb(255, 255, 255);
 
     background: linear-gradient(
@@ -621,16 +610,87 @@ h2 {
     box-sizing: border-box;
     /* user-select: none; */
     cursor: pointer;
-    transition: 0.3s ease-out;
+    transition: 0.5s ease-out;
   }
+
+#correct-btn {
+  width: 250px;
+  height: 60px;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  padding: 10px;
+
+  font-size: 1rem;
+  font-family: "MenuFont";
+  line-height: 20px;
+  text-shadow: -2px 2px 2px rgb(255, 255, 255);
+
+  background: linear-gradient(
+    to right bottom,
+    rgb(126, 165, 101) 0%,
+    rgb(98, 224, 130) 25%,
+    rgb(255, 255, 255) 50%,
+    rgb(98, 224, 130) 75%,
+    rgb(126, 165, 101) 100%
+  );
+
+  border-radius: 12px;
+  border: 2px solid rgba(178, 205, 216, 0.521);
+
+  box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.219);
+  box-sizing: border-box;
+  /* user-select: none; */
+  cursor: pointer;
+  transition: 0.8s ease-out;
 }
+
+#wrong-btn {
+  width: 250px;
+  height: 60px;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  padding: 10px;
+
+  font-size: 1rem;
+  font-family: "MenuFont";
+  line-height: 20px;
+  text-shadow: -2px 2px 2px rgb(255, 255, 255);
+
+  background: linear-gradient(
+    to right bottom,
+    rgb(155, 71, 71) 0%,
+    rgb(202, 92, 92) 25%,
+    rgb(255, 255, 255) 50%,
+    rgb(202, 92, 92) 75%,
+    rgb(155, 71, 71) 100%
+  );
+
+  border-radius: 12px;
+  border: 2px solid rgba(178, 205, 216, 0.521);
+
+  box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.219);
+  box-sizing: border-box;
+  /* user-select: none; */
+  cursor: pointer;
+  transition: 0.8s ease-out;
+}
+
+}
+
+
+
 
 /* Timer-stilen som motsvarar dina inline-styles */
 .timer {
-    text-align: center;
+  display: sticky;
+  text-align: center;
   margin: 8px 0 16px;
   font-family: "MenuFont", system-ui, sans-serif;
-  font-size: 1rem;
+  font-size: 1.2rem;
   padding: 6px 14px;
   border: 2px solid rgba(178, 205, 216, 0.521);
   border-radius: 12px;
@@ -642,8 +702,4 @@ h2 {
   );
   box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.22);
 }
-#main-container {
-    max-height: fit-content;
-    width: 90%;
-    margin: 0 auto;
-}
+

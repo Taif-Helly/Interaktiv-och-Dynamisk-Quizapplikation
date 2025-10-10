@@ -26,22 +26,15 @@ const startButton = document.createElement("p");
 startButton.id = "start-button";
 startButton.textContent = "Click here to start!";
 
-const creatorsText1 = document.createElement("p");
-creatorsText1.id = "creators-text";
-const creatorsText2 = document.createElement("p");
-creatorsText2.id = "creators-text";
-
-const creatorsContent1 = "Created by:";
-const creatorsContent2 = "David, Desirée, Johan & Taif";
+const creatorsText = document.createElement("p");
+creatorsText.id = "creators-text";
+creatorsText.innerHTML = "Created by:<br>David, Desirée, Johan & Taif"
 
 introText.textContent = introContent;
-creatorsText1.textContent = creatorsContent1;
-creatorsText2.textContent = creatorsContent2;
 
 introBox.appendChild(introText);
 introBox.appendChild(startButton);
-introBox.appendChild(creatorsText1);
-introBox.appendChild(creatorsText2);
+introBox.appendChild(creatorsText);
 
 // Animation när startsidan laddas in
 function startPageLoad() {
@@ -64,12 +57,12 @@ duckAudio.volume = 0.9;
 
 function playDuckLocal(duration) {
   try {
-    duckAudio.currentTime = 0; // starta från början
+    duckAudio.currentTime = 0; // Starta från början
     duckAudio.play();
     if (duration) {
       setTimeout(() => {
         duckAudio.pause();
-        duckAudio.currentTime = 0; // återställ till början
+        duckAudio.currentTime = 0; // Återställ till början
       }, duration);
     }
   } catch (e) {
@@ -132,15 +125,7 @@ function gameStart() {
     btn.value = category.value;
     btn.id = "btn-style";
     btn.classList.add("content-fade-in");
-
-    const title = document.createElement("h2");
-    title.textContent = category.title;
-
-    const description = document.createElement("p");
-    description.textContent = category.description;
-
-    btn.appendChild(title);
-    btn.appendChild(description);
+    btn.innerText = category.value;
 
     categoryContainer.appendChild(btn);
     backgroundContainer.appendChild(categoryContainer);
@@ -162,11 +147,11 @@ function gameStart() {
 
   function clearQuestionTimer() {
     if (questionTimerId) {
-      clearInterval(questionTimerId); // Stoppar intervallet och tar bort timern
+      clearInterval(questionTimerId); // Stoppar intervallet
       questionTimerId = null;
     }
     if (timerEl && timerEl.parentNode) {
-      timerEl.parentNode.removeChild(timerEl);
+     // timerEl.parentNode.removeChild(timerEl);
       timerEl = null;
     }
   }
@@ -186,7 +171,7 @@ function gameStart() {
       if (timeLeft > 0) {
         timerEl.textContent = `Time Left: ${timeLeft}s`;
       } else {
-        timerEl.textContent = "Time Left:0s";
+        timerEl.textContent = "Time Left: 0s";
         clearQuestionTimer();
         onTimeout && onTimeout(); // Extra säkerhet
       }
@@ -236,13 +221,13 @@ function gameStart() {
     if (answerDiv) answerDiv.classList.add("content-fade-out");
 
     setTimeout(() => {
-      currentQuestionIndex++;
+      currentQuestionIndex++; 
       clearBackgroundContainer();
-      if (answerDiv) answerDiv.classList.remove("content-fade-out");
-      if (questionContainer)
-        questionContainer.classList.remove("content-fade-out");
       showQuestion();
-    }, 400);
+    }, 800);
+    if (answerDiv) answerDiv.classList.remove("content-fade-out");
+    if (questionContainer)
+     questionContainer.classList.remove("content-fade-out");
   }
 
   // Visar frågorna
@@ -281,12 +266,13 @@ function gameStart() {
         answerButton.setAttribute("data-index", index);
         answerButton.id = "btn-style";
         answerButton.classList.add("content-fade-in");
-
+        
         answerButton.addEventListener("click", (e) => {
+          answerButton.style.userSelect = 'none';
           answeredThisQuestion = true;
           const clickedAnswer = Number(e.target.dataset.index);
           const correctAnswer = question.rightAnswer;
-
+          
           // Kollar om användarens svar är rätt svar, om ja: lägger till poäng, och visar rätt/fel visuellt
           if (clickedAnswer === correctAnswer) {
             score++;
@@ -294,17 +280,19 @@ function gameStart() {
           } else {
             answerButton.id = "wrong-btn";
           }
-
+          
           // Går till nästa fråga
           goToNextQuestion(questionContainer, answerDiv);
         });
-
+        
         answerDiv.appendChild(answerButton);
       });
 
       backgroundContainer.appendChild(answerDiv);
     } else {
       // RESULTATSIDA
+      clearQuestionTimer();
+      
       pageTitle.textContent = "Thanks for playing!";
       const scoreEL = document.createElement("p");
       scoreEL.id = "intro-text";
