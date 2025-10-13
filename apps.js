@@ -365,3 +365,5 @@ function gameStart() {
     }
   }
 }
+
+// Slut på koden :)
